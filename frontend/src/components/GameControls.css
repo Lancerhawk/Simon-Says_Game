@@ -1,0 +1,163 @@
+.game-controls {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.control-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  backdrop-filter: blur(15px);
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  user-select: none;
+}
+
+.control-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.control-btn:hover::before {
+  left: 100%;
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon svg {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.3s ease;
+}
+
+.btn-text {
+  font-weight: inherit;
+  letter-spacing: 0.5px;
+}
+
+/* Pause Button */
+.pause-btn {
+  background: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+  border-color: rgba(255, 193, 7, 0.3);
+}
+
+.pause-btn:hover {
+  background: rgba(255, 193, 7, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
+  border-color: rgba(255, 193, 7, 0.5);
+}
+
+.pause-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+}
+
+.pause-btn.paused {
+  background: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+  border-color: rgba(76, 175, 80, 0.3);
+}
+
+.pause-btn.paused:hover {
+  background: rgba(76, 175, 80, 0.3);
+  box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
+  border-color: rgba(76, 175, 80, 0.5);
+}
+
+/* Restart Button */
+.restart-btn {
+  background: rgba(244, 67, 54, 0.2);
+  color: #f44336;
+  border-color: rgba(244, 67, 54, 0.3);
+}
+
+.restart-btn:hover {
+  background: rgba(244, 67, 54, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(244, 67, 54, 0.3);
+  border-color: rgba(244, 67, 54, 0.5);
+}
+
+.restart-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
+}
+
+.restart-btn:hover .btn-icon svg {
+  transform: rotate(180deg);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .game-controls {
+    gap: 10px;
+  }
+
+  .control-btn {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+
+  .btn-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-controls {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .control-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px;
+  }
+
+  .btn-text {
+    display: none;
+  }
+
+  .btn-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .control-btn:hover {
+    transform: none;
+  }
+  
+  .control-btn:active {
+    transform: scale(0.95);
+  }
+}

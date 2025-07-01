@@ -1,0 +1,415 @@
+.game-board {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  aspect-ratio: 1;
+}
+
+.game-board-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 15px;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  position: relative;
+}
+
+.game-button {
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  background: none;
+  padding: 0;
+  overflow: hidden;
+  outline: none;
+  transform-origin: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.game-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.game-button:active::before {
+  width: 100%;
+  height: 100%;
+}
+
+.game-button.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.button-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  aspect-ratio: 1;
+  min-height: 100px;
+}
+
+.button-glow {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 22px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.button-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  transition: all 0.15s ease;
+}
+
+.button-number {
+  font-size: 2rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.3);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+/* Red Button */
+.red-button .button-content {
+  background: linear-gradient(145deg, #dc2626, #b91c1c);
+  box-shadow: 
+    0 8px 25px rgba(220, 38, 38, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.red-button .button-glow {
+  background: linear-gradient(145deg, #ef4444, #dc2626);
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.6);
+}
+
+.red-button:hover:not(.disabled) .button-content {
+  background: linear-gradient(145deg, #ef4444, #dc2626);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 35px rgba(220, 38, 38, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.red-button.active .button-content {
+  background: linear-gradient(145deg, #fca5a5, #ef4444);
+  transform: scale(0.95);
+  box-shadow: 
+    0 4px 15px rgba(220, 38, 38, 0.6),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.red-button.active .button-glow {
+  opacity: 1;
+}
+
+.red-button.active .button-number {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+}
+
+/* Blue Button */
+.blue-button .button-content {
+  background: linear-gradient(145deg, #2563eb, #1d4ed8);
+  box-shadow: 
+    0 8px 25px rgba(37, 99, 235, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.blue-button .button-glow {
+  background: linear-gradient(145deg, #3b82f6, #2563eb);
+  box-shadow: 0 0 30px rgba(37, 99, 235, 0.6);
+}
+
+.blue-button:hover:not(.disabled) .button-content {
+  background: linear-gradient(145deg, #3b82f6, #2563eb);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 35px rgba(37, 99, 235, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.blue-button.active .button-content {
+  background: linear-gradient(145deg, #93c5fd, #3b82f6);
+  transform: scale(0.95);
+  box-shadow: 
+    0 4px 15px rgba(37, 99, 235, 0.6),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.blue-button.active .button-glow {
+  opacity: 1;
+}
+
+.blue-button.active .button-number {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+}
+
+/* Green Button */
+.green-button .button-content {
+  background: linear-gradient(145deg, #16a34a, #15803d);
+  box-shadow: 
+    0 8px 25px rgba(22, 163, 74, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.green-button .button-glow {
+  background: linear-gradient(145deg, #22c55e, #16a34a);
+  box-shadow: 0 0 30px rgba(22, 163, 74, 0.6);
+}
+
+.green-button:hover:not(.disabled) .button-content {
+  background: linear-gradient(145deg, #22c55e, #16a34a);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 35px rgba(22, 163, 74, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.green-button.active .button-content {
+  background: linear-gradient(145deg, #86efac, #22c55e);
+  transform: scale(0.95);
+  box-shadow: 
+    0 4px 15px rgba(22, 163, 74, 0.6),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.green-button.active .button-glow {
+  opacity: 1;
+}
+
+.green-button.active .button-number {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+}
+
+/* Yellow Button */
+.yellow-button .button-content {
+  background: linear-gradient(145deg, #eab308, #ca8a04);
+  box-shadow: 
+    0 8px 25px rgba(234, 179, 8, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.yellow-button .button-glow {
+  background: linear-gradient(145deg, #fbbf24, #eab308);
+  box-shadow: 0 0 30px rgba(234, 179, 8, 0.6);
+}
+
+.yellow-button:hover:not(.disabled) .button-content {
+  background: linear-gradient(145deg, #fbbf24, #eab308);
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 35px rgba(234, 179, 8, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+}
+
+.yellow-button.active .button-content {
+  background: linear-gradient(145deg, #fde047, #fbbf24);
+  transform: scale(0.95);
+  box-shadow: 
+    0 4px 15px rgba(234, 179, 8, 0.6),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.yellow-button.active .button-glow {
+  opacity: 1;
+}
+
+.yellow-button.active .button-number {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+}
+
+/* Player interaction states */
+.game-button.recent-click .button-content {
+  animation: playerClick 0.3s ease-out;
+}
+
+@keyframes playerClick {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.game-button.in-sequence:not(.active) .button-number {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Center Indicator */
+.center-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.simon-logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+}
+
+.logo-text {
+  font-size: 1rem;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  letter-spacing: 2px;
+}
+
+.logo-ring {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border: 2px solid transparent;
+  background: linear-gradient(45deg, #667eea, #764ba2) border-box;
+  border-radius: 50%;
+  mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+  mask-composite: subtract;
+  -webkit-mask-composite: xor;
+  animation: logoRing 3s ease-in-out infinite;
+}
+
+@keyframes logoRing {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .game-board {
+    max-width: 400px;
+  }
+
+  .game-board-container {
+    gap: 12px;
+    padding: 30px;
+  }
+
+  .button-inner {
+    min-height: 80px;
+  }
+
+  .button-number {
+    font-size: 1.5rem;
+  }
+
+  .simon-logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .logo-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-board {
+    max-width: 350px;
+  }
+
+  .game-board-container {
+    gap: 10px;
+    padding: 25px;
+  }
+
+  .button-inner {
+    min-height: 70px;
+  }
+
+  .button-number {
+    font-size: 1.3rem;
+  }
+
+  .simon-logo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .logo-text {
+    font-size: 0.8rem;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .game-button:hover:not(.disabled) .button-content {
+    transform: none;
+  }
+  
+  .game-button:active:not(.disabled) .button-content {
+    transform: scale(0.95);
+  }
+}
